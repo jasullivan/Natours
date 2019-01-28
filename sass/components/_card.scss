@@ -1,0 +1,158 @@
+.card {
+    // perspective needs to be added to make the card look like it swivels
+    // otherwise it does a flat rotation. The lower the figure the more natural
+    // it appears. Bit of trial and error needed.
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    // need to specify same height as child so doesn't collapse after
+    // adding position absolute in &__side
+    height: 52rem;
+
+    &__side {
+        height: 52rem;
+        // changes the animation from linear which is better in this case
+        transition: all .8s ease;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        // hides the back part of an element
+        // handy with animations
+        backface-visibility: hidden;
+        border-radius: 3px;
+        // the image in card__picture is overlapping beyond the parent so need this
+        overflow: hidden;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+        &--front {
+            background-color: $color-white;
+        }
+        &--back {
+            // back side needs to be set at 180 deg as it's already flipped, as it's the back
+            // this has a knock on effect to the consequent rotation below
+            transform: rotateY(180deg);
+            &-1 {
+                // gradients only work with background-image
+                background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+            }
+            &-2 {
+                // gradients only work with background-image
+                background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+            }
+            &-3 {
+                // gradients only work with background-image
+                background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+            }
+        }
+    }
+    &:hover &__side--front {
+        // needs minus figure so it rotates in unison with the back
+        transform: rotateY(-180deg);
+    }
+    &:hover &__side--back {
+        transform: rotateY(0);
+    }
+
+    // front side styling
+    &__picture {
+        background-size: cover;
+        height: 23rem;
+        // blend is not available in IE or Edge
+        background-blend-mode: screen;
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        &--1 {
+            // image path is such as it runs from the style.css file
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark), url(../img/nat-5.jpg);
+            // -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            // clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark), url(../img/nat-6.jpg);
+            // -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            // clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark), url(../img/nat-7.jpg);
+            // -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            // clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+    }
+    &__heading {
+        font-size: 2.8rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-align: right;
+        color: $color-white;
+        position: absolute;
+        top: 12rem;
+        right: 2rem;
+        width: 75%;
+    }
+    // not really a child of __heading so it sits parallel
+    &__heading-span {
+        padding: 1rem 1.5rem;
+        // if a line of copy breaks/wraps then it still gets treated as one line of code
+        // so padding will be on the very end right and the very end left. This treats each wrapped line
+        // as it's own element spreading the padding correctly on each line
+        -webkit-box-decoration-break: clone;
+        &--1 {
+            background-image: linear-gradient(to right bottom,
+            rgba($color-secondary-light, .85),
+            rgba($color-secondary-dark, .85));
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom,
+            rgba($color-primary-light, .85),
+            rgba($color-primary-dark, .85));
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom,
+            rgba($color-tertiary-light, .85),
+            rgba($color-tertiary-dark, .85));
+        }
+    }
+    &__details {
+        padding: 3rem;
+        ul {
+            list-style: none;
+            width: 80%;
+            margin: 0 auto;
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+                &:not(:last-child) {
+                    border-bottom: 1px solid $color-light-grey-2;
+                }
+            }
+        }
+    }
+
+    // back side styling
+    &__cta {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        text-align: center;
+    }
+    &__price-box {
+        text-align: center;
+        color: $color-white;
+        margin-bottom: 8rem;
+    }
+    &__price-only {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+    }
+    &__price-value {
+        font-size: 6rem; 
+        font-weight: 100;
+    }
+}
+

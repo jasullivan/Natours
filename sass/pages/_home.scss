@@ -1,0 +1,31 @@
+.section-about {
+    background-color: $color-light-grey;
+    padding: 25rem 0;
+    margin-top: -20vh;
+}
+.section-features {
+    padding: 20rem 0;
+    background-image: linear-gradient(
+        to right bottom,
+        /* adding these variables in an rgba only works in sass*/
+        rgba($color-primary-light, 0.8), 
+        rgba($color-primary-dark, 0.8)),  
+    url(../img/nat-4.jpg);
+    background-size: cover;
+    // different option for clip path
+    transform: skewY(-7deg);
+    margin-top: -10rem;
+    // direct child selector (all) - in this case just .row
+    & > * {
+        transform: skewY(7deg);
+    }
+}
+.section-tours {
+    background-color: $color-light-grey;
+    padding: 25rem 0 15rem;
+    margin-top: -10rem;
+}
+.section-stories {
+    padding: 15rem 0;
+    background-color: $color-light-grey;
+}

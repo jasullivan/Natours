@@ -1,0 +1,87 @@
+.btn {
+    &:link, &:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem;
+        display: inline-block;
+        border-radius: 10rem;
+        /* transition sits on the original state and the change sits on the next version */
+        transition: all .2s;
+        position: relative;
+        font-size: $default-font-size;
+    }
+    &:hover {
+        transform: translateY(-3px);
+        /* 3rd figure is blur level */
+        box-shadow: 0 1rem 2rem rgba($color-black,0.2);
+        /* so only when button hover change the styling to this.*/
+        &::after {
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+    }
+    &:active {
+        transform: translateY(-1px);
+        box-shadow: 0 .5rem 1rem rgba($color-black,0.2);
+    }
+    /* -1px is in relation to the original specs not -3px */
+    &--white {
+        background-color: $color-white;
+        color: $color-dark-grey;
+        &::after {
+            background-color: $color-white;
+        }
+    }
+    &--green {
+        background-color: $color-primary;
+        color: $color-white;
+        &::after {
+            background-color: $color-primary;
+        }
+    }
+    /* after and before pseudo elements create virtual copies of the original to allow styling and effects. They're basically treated like a child of the original */
+    /* must add content property to allow pseudo element to appear on the page */
+    /* position absolute looks for the first form of reference, in this case it's the relative value of the original button */
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width:100%;
+        border-radius: 10rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .4s;
+    }
+    
+    /* .75 the last value signifies the delay. if none specified then no delay */
+    &--animated {
+        animation: moveInBottom 1s ease-out .75s;
+        /* this means that the first styling in the keyframes is applied immediately */
+        animation-fill-mode: backwards;
+    }
+}
+
+.btn-text {
+    &:link,
+    &:visited {
+        font-size: $default-font-size;
+        color: $color-primary;
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: 1px solid $color-primary;
+        padding: 3px;
+        transition: all .2s;
+    }
+    &:hover {
+        background-color: $color-primary;
+        color: $color-white;
+        box-shadow: 0 1rem 2rem rgba($color-black, .15);
+        transform: translateY(-2px);
+    }
+    &:active {
+        box-shadow: 0 .5rem 1rem rgba($color-black, .15);
+        transform: translateY(0);
+    }
+}
